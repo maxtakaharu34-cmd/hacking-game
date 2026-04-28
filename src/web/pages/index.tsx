@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 // ============================================================
-// 📡 Hacking Terminal — ターミナル風UIでサーバーに侵入
+// 📡 ハッキングターミナル — ターミナル風UIでサーバーに侵入
 // ============================================================
 
 interface ServerNode {
@@ -33,7 +33,7 @@ interface GameState {
   currentServer: ServerNode | null;
   servers: ServerNode[];
   connected: boolean;
-  traceLevel: number;
+  traceレベル: number;
   maxTrace: number;
   traceActive: boolean;
 }
@@ -127,7 +127,7 @@ export default function HackingGame() {
       currentServer: null,
       servers,
       connected: false,
-      traceLevel: 0,
+      traceレベル: 0,
       maxTrace: 100,
       traceActive: false,
     };
@@ -166,7 +166,7 @@ export default function HackingGame() {
             clearInterval(traceIntervalRef.current);
             return {
               ...prev,
-              traceLevel: 0,
+              traceレベル: 0,
               traceActive: false,
               connected: false,
               currentServer: null,
@@ -177,7 +177,7 @@ export default function HackingGame() {
             addLog("⚠ WARNING: Trace at 70% — disconnect soon!", "warning");
             alertSound();
           }
-          return { ...prev, traceLevel: newTrace };
+          return { ...prev, traceレベル: newTrace };
         });
       }, 1000);
       return () => clearInterval(traceIntervalRef.current);
@@ -251,7 +251,7 @@ export default function HackingGame() {
         addLog(`Connected to ${server.name} [${server.ip}]`, "success");
         addLog(`Firewall: ${server.firewall}/${server.maxFirewall} | ${server.encrypted ? "🔒 ENCRYPTED" : "🔓 OPEN"}`, "warning");
         successSound();
-        setGame(prev => ({ ...prev, currentServer: server, connected: true, traceActive: true, traceLevel: 0 }));
+        setGame(prev => ({ ...prev, currentServer: server, connected: true, traceActive: true, traceレベル: 0 }));
         break;
       }
 
@@ -259,7 +259,7 @@ export default function HackingGame() {
         if (!game.connected) { addLog("Not connected to any server.", "error"); break; }
         addLog(`Disconnected from ${game.currentServer?.name}`, "info");
         clearInterval(traceIntervalRef.current);
-        setGame(prev => ({ ...prev, currentServer: null, connected: false, traceActive: false, traceLevel: 0 }));
+        setGame(prev => ({ ...prev, currentServer: null, connected: false, traceActive: false, traceレベル: 0 }));
         break;
 
       case "hack": {
@@ -387,7 +387,7 @@ export default function HackingGame() {
         addLog("═══════════════════════════════════════", "system");
         addLog(`  Credits: $${game.credits}`, "loot");
         addLog(`  Reputation: ${game.reputation}`, "info");
-        addLog(`  Level: ${game.level}`, "info");
+        addLog(`  レベル: ${game.level}`, "info");
         addLog(`  Tools: ${game.tools.length}/${TOOL_LIST.length}`, "info");
         addLog(`  Data files: ${game.data.length}`, "info");
         addLog(`  Servers owned: ${game.servers.filter(s => s.compromised).length}/${game.servers.length}`, "success");
@@ -410,11 +410,11 @@ export default function HackingGame() {
       const newLevel = game.level + 1;
       addLog("", "system");
       addLog("████████████████████████████████████████", "success");
-      addLog(`  LEVEL ${newLevel} UNLOCKED — NEW SERVERS LOADED`, "success");
+      addLog(`  レベル ${newLevel} UNLOCKED — NEW SERVERS LOADED`, "success");
       addLog("████████████████████████████████████████", "success");
       successSound();
       const newServers = Array.from({ length: 6 }, (_, i) => generateServer(newLevel, i + newLevel * 6));
-      setGame(prev => ({ ...prev, level: newLevel, servers: newServers, connected: false, currentServer: null, traceActive: false, traceLevel: 0 }));
+      setGame(prev => ({ ...prev, level: newLevel, servers: newServers, connected: false, currentServer: null, traceActive: false, traceレベル: 0 }));
     }
   };
 
